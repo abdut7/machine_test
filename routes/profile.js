@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const getMongoDb = require('../controllers/core/getMongoDbClient')
+const getMongoDb = require('../core/getMongoDbClient')
 
 const profiles = [{
   "id": 1,

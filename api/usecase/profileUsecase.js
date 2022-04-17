@@ -1,4 +1,5 @@
 const getMongoDb = require('../../core/getMongoDbClient')
+const validateProfile = require('../entity/profileEntity')
 module.exports = async ({
     body
 }) => {
@@ -6,11 +7,15 @@ module.exports = async ({
         const DB = await getMongoDb();
         if(!DB)
         console.log("FAILS")
-        const result = await DB.collection("profile").insertOne(body);
-        console.log(result,"sad");
+        const profileEntity = await validateProfile(body);
+        if(profileEntity.fail){
+            return profileEntity
+        }
+        const result = await DB.collection("profile").insertOne(profileEntity);
         if (result)
             return {
-                message: "INSERTED"
+                id:profileEntity.id,
+                message: "NEW PROFILE CREATED"
             }
         else return {
             message: "FAILED"

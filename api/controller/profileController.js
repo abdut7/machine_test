@@ -1,4 +1,4 @@
-const createProfileUsecase = require('../usecase/createProfile')
+const createProfileUsecase = require('../usecase/profileUsecase')
 const createProfileController = async ({
     body,
     ...header

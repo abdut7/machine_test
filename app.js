@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 // routes
 app.use('/', require('./routes/profile')());
 //Web services routes
-app.use("/", routes);
+app.use("/api/", routes);
 
 // start server
 const server = app.listen(port, async (err) => {
