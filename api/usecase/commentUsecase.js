@@ -22,14 +22,31 @@ creatCommentUsecase = async ({
     }
 }
 getCommentUsecase = async ({
-    filter = null,
-    sort = null
+    filterKey,
+    sortKey,
+    filterValue,
+    sortOrder = 1
 }) => {
     try {
         const DB = await getMongoDb();
         const list = []
+        const aggregateFilter = []
         if (!DB)
             console.log("FAILS")
+        if (sortKey) {
+            await aggregateFilter.push({
+                $sort: {
+                    [`profile.${sortKey}`]: sortOrder
+                }
+            })
+        }
+        if (filterKey && filterValue) {
+            await aggregateFilter.push({
+                $match: {
+                    [`profile.${filterKey}`]: filterKey
+                }
+            })
+        }
         const result = await DB.collection("comment").aggregate([{
                 $lookup: {
                     from: "profile",

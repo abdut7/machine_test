@@ -27,9 +27,7 @@ const getCommentController = async ({
 }) => {
     try {
         return {
-            body: await getCommentUsecase({
-                body
-            })
+            body: await getCommentUsecase(body)
         }
     } catch (error) {
         return {
